@@ -21,17 +21,25 @@ public class TestSpringBootApplicationTests {
 	}
 
 	@Test
-	public void 트랜잭션테스트() {
+	public void 트랜잭션테스트WithNPE() {
 		assertThat(helloService.getUsers().size(), is(4));
 
 		try {
 			// save user
-			helloService.transactionTest();
+			helloService.getUserByOccurNPE();
 		} catch (RuntimeException ex) {}
 
 
 		helloService.getUsers().forEach(System.out::println);
 		assertThat(helloService.getUsers().size(), is(4));
+	}
+
+	@Test
+	public void 트랜잭션테스트WithNormal() {
+		assertThat(helloService.getUsers().size(), is(4));
+		// save user
+		helloService.getUser();
+		assertThat(helloService.getUsers().size(), is(5));
 	}
 
 }

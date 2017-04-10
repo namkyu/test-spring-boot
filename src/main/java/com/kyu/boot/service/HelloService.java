@@ -18,7 +18,7 @@ public class HelloService {
     @Autowired
     private HelloRepository helloRepository;
 
-    public void transactionTest() {
+    public void getUserByOccurNPE() {
         NamkyuUser namkyuUser = new NamkyuUser();
         namkyuUser.setUserId("namkyu5");
         helloRepository.save(namkyuUser);
@@ -27,6 +27,14 @@ public class HelloService {
         String test = null;
         test.isEmpty();
     }
+
+    public void getUser() {
+        NamkyuUser namkyuUser = new NamkyuUser();
+        namkyuUser.setUserId("namkyu5");
+        helloRepository.save(namkyuUser);
+    }
+
+
 
     public List<NamkyuUser> getUsers() {
         return helloRepository.findAll();
