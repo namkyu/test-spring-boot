@@ -1,4 +1,11 @@
 
+
+# spring.datasource.* : sets up an in-memory H2 database
+# spring.datasource.initialize : tells spring-boot to initialize the database with scripts
+# datasource.schema : the schema sql script to load. By default is schema-${platform}.sql then schema.sql
+# datasource.data : the data sql sript. By default, it is data-${platform}.sql then data.sql
+
+
 debug: false
 
 spring:
@@ -7,14 +14,21 @@ spring:
       enabled: true
       path: /h2-console
 
-
-
-
   datasource:
     initialize: true
     url: jdbc:h2:mem:nkdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
     username: sa
+    platform: h2
+    #schema:
+    #data:
+
   jpa:
     show-sql: true
+    hibernate:
+#      ddl-auto: none
+      ddl-auto: create-drop
+
+  main:
+    banner-mode: "off"
 

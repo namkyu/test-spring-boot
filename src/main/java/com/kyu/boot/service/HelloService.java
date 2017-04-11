@@ -8,9 +8,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
-/**
- * Created by nklee on 2017-04-10.
- */
+
+
 @Service
 @Transactional
 public class HelloService {
@@ -18,6 +17,10 @@ public class HelloService {
     @Autowired
     private HelloRepository helloRepository;
 
+
+    /**
+     *
+     */
     public void getUserByOccurNPE() {
         NamkyuUser namkyuUser = new NamkyuUser();
         namkyuUser.setUserId("namkyu5");
@@ -28,10 +31,25 @@ public class HelloService {
         test.isEmpty();
     }
 
+    /**
+     *
+     */
     public void getUser() {
         NamkyuUser namkyuUser = new NamkyuUser();
         namkyuUser.setUserId("namkyu5");
         helloRepository.save(namkyuUser);
+    }
+
+
+    /**
+     * @param a
+     * @param b
+     * @param c
+     * @return
+     * @throws Exception
+     */
+    public Object autoGenerateJavadocComment(String a, String b, String c) throws Exception {
+        return "a";
     }
 
 

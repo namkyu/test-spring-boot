@@ -1,6 +1,7 @@
 package com.kyu.boot.entity;
 
 import lombok.Data;
+import org.joda.time.DateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

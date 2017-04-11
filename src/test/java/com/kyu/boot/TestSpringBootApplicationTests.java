@@ -27,7 +27,9 @@ public class TestSpringBootApplicationTests {
 		try {
 			// save user
 			helloService.getUserByOccurNPE();
-		} catch (RuntimeException ex) {}
+		} catch (RuntimeException ex) {
+			ex.printStackTrace();
+		}
 
 
 		helloService.getUsers().forEach(System.out::println);
