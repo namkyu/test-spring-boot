@@ -6,7 +6,7 @@
 # datasource.data : the data sql sript. By default, it is data-${platform}.sql then data.sql
 
 
-debug: false
+debug: true
 
 spring:
   h2:
@@ -27,8 +27,7 @@ spring:
     show-sql: true
     hibernate:
 #      ddl-auto: none
-      ddl-auto: create-drop
+      ddl-auto: update
 
   main:
     banner-mode: "off"
-

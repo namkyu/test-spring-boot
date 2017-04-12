@@ -1,8 +1,7 @@
 package com.kyu.boot.repository;
 
-
 import com.kyu.boot.entity.Account;
-import com.kyu.boot.entity.Book;
+import com.kyu.boot.entity.onetomany.Phone;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -11,5 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Author : nklee
  * @Description :
  */
-public interface BookRepository extends JpaRepository<Book, Integer> {
+public interface PhoneRepository extends JpaRepository<Phone, Integer> {
 }

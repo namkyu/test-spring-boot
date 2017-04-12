@@ -18,7 +18,6 @@ public class HelloController {
     @Autowired
     private AccountRepository accountRepository;
 
-
     @ResponseBody
     @RequestMapping("/")
     public String hello() {
