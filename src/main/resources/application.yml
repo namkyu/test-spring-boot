@@ -1,12 +1,38 @@
 
 
+# ==============================================================
+# datasource
+# ==============================================================
 # spring.datasource.* : sets up an in-memory H2 database
 # spring.datasource.initialize : tells spring-boot to initialize the database with scripts
 # datasource.schema : the schema sql script to load. By default is schema-${platform}.sql then schema.sql
 # datasource.data : the data sql sript. By default, it is data-${platform}.sql then data.sql
 
+# ==============================================================
+# 애플리케이션 프로퍼티 reference
+# ==============================================================
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 
-debug: true
+# ==============================================================
+# Tomcat 설정 관련
+# ==============================================================
+# [maxConnection]
+# 하나의 tomcat 인스턴스가 유지할 수 있는 Connection의 수를 정의 한다.
+# 이 때 주의해야 할 점은 이 수는 현재 연결되어 있는 실제 Connection의 수가 아니라 현재 사용중인 socket fd (file descriptor)의 수 이다.
+# 무슨 말인가 하면 TCP Connection은 특성상 Connection 이 끊난 후에도 바로 socket이 close 되는 것이 아니라 FIN 신호를 보내고, TIME_WAIT 시간을 거쳐서 connection을 정리한다.
+# 실제 톰캣 인스턴스가 100개의 Connection 으로 부터 들어오는 요청을 동시 처리할 수 있다하더라도,
+# 요청을 처리하고 socket이 close 되면 TIME_WAIT에 머물러 있는 Connection 수가 많기 때문에, 단시간내에 많은 요청을 처리하게 되면 이 TIME_WAIT가 사용하는 fd 수 때문에, maxConnection이 모자를 수 있다.
+# 그래서 maxConnection은 넉넉하게 주는 것이 좋다
+# 이외에도 HTTP 1.1 Keep Alive를 사용하게 되면 요청을 처리 하지 않는 Connection도 계속 유지 되기 때문에, 요청 처리 수 보다, 실제 연결되어 있는 Connection 수가 높게 된다.
+# 그리고, process당 열 수 있는 fd수는 ulimit -f 를 통해서 설정이 된다. maxConnection을 8192로 주더라도, ulimit -f에서 fd 수를 적게 해놓으면 소용이 없기 때문에 반드시 ulimit -f 로 최대 물리 Connection 수를 설정해놔야 한다.
+
+# [maxThreads]
+# 최대 수용할 수 있는 Thread 개수며, default는 200이다.
+
+# [minSpareThreads]
+# 언제나 살아 있는 Thread의 최소 개수며, default는 25이다.
+
+debug: false
 
 spring:
   h2:
@@ -23,6 +49,8 @@ spring:
     #schema:
     #data:
 
+
+
   jpa:
     show-sql: true
     hibernate:
@@ -31,3 +59,19 @@ spring:
 
   main:
     banner-mode: "off"
+  thymeleaf:
+    cache: false
+  devtools:
+    livereload:
+      enabled: true
+
+server:
+  tomcat:
+    max-threads: 500 # Maximum amount of worker threads.
+    min-spare-threads: 50 # Minimum amount of worker threads.
+    max-connections: 10000 # Maximum number of connections that the server will accept and process at any given time.
+    uri-encoding: UTF-8 # Character encoding to use to decode the URI.
+  connection-timeout: 10000 # 10 seconds
+
+
+welcome.message: Hello Kyu!!

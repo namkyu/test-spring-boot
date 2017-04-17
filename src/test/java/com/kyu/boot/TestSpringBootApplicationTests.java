@@ -7,6 +7,7 @@ import com.kyu.boot.entity.onetoone.Person;
 import com.kyu.boot.repository.MemberRepository;
 import com.kyu.boot.repository.PhoneRepository;
 import com.kyu.boot.service.HelloService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+@Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TestSpringBootApplicationTests {
