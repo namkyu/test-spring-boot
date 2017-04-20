@@ -3,6 +3,7 @@ package com.kyu.boot;
 import com.kyu.boot.entity.NamkyuUser;
 import com.kyu.boot.interceptor.LoggingInterceptor;
 import com.kyu.boot.repository.HelloRepository;
+import de.codecentric.boot.admin.config.EnableAdminServer;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import java.util.stream.Stream;
 
+@EnableAdminServer
 @SpringBootApplication
 public class TestSpringBootApplication {
 
@@ -35,6 +37,7 @@ public class TestSpringBootApplication {
             public void addInterceptors(InterceptorRegistry registry) {
                 registry.addInterceptor(new LoggingInterceptor())
                         .addPathPatterns("/convertJodaTimefromDateType")
+                        .addPathPatterns("/hello")
                         .addPathPatterns("/thymleafTest");
             }
         };

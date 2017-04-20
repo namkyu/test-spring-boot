@@ -51,6 +51,7 @@ spring:
 
 
 
+
   jpa:
     show-sql: true
     hibernate:
@@ -64,6 +65,11 @@ spring:
   devtools:
     livereload:
       enabled: true
+  boot:
+    admin:
+      url: http://localhost:8080
+
+
 
 server:
   tomcat:
@@ -72,6 +78,10 @@ server:
     max-connections: 10000 # Maximum number of connections that the server will accept and process at any given time.
     uri-encoding: UTF-8 # Character encoding to use to decode the URI.
   connection-timeout: 10000 # 10 seconds
+
+management:
+  security:
+    enabled: false
 
 
 welcome.message: Hello Kyu!!

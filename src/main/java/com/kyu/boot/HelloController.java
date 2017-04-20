@@ -23,7 +23,7 @@ public class HelloController {
     private AccountRepository accountRepository;
 
     @ResponseBody
-    @RequestMapping("/")
+    @RequestMapping("/hello")
     public String hello() {
         return "My first Spring boot!!";
     }
@@ -45,7 +45,6 @@ public class HelloController {
     @RequestMapping("/thymleafTest")
     public String thymleafTest(Map<String, String> model) {
         model.put("message", message);
-        log.info("message11 : {}", message);
         return "helloThymleaf";
     }
 }

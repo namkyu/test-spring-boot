@@ -19,7 +19,8 @@ public class LoggingInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         String param = httpServletRequest.getQueryString();
-        log.info("## param : {}", param);
+        log.info("(info) param : {}", param);
+        log.debug("(debug) param : {}", param);
         return true;
     }
 
