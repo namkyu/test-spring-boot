@@ -1,9 +1,8 @@
 {
-  "name": "gentelella",
-  "homepage": "https://colorlib.com/polygon/gentelella/index.html",
+  "name": "test-spring-boot",
+  "homepage": "",
   "authors": [
-    "Aigars Silkalns",
-    "Christian Esperar"
+    "nklee"
   ],
   "description": "Gentelella Admin is a free to use Bootstrap admin template",
   "keywords": [
