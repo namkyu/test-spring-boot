@@ -6,7 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -31,12 +33,14 @@ public class HelloController {
     @Value("${welcome.message}")
     private String message = "Hello World";
 
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    public String main(Model model) {
+        return "main";
+    }
 
-    /**
-     * @return
-     */
     @ResponseBody
     @RequestMapping("/convertJodaTimefromDateType")
+
     public List<Account> convertJodaTimeFromDateType() {
         List<Account> accountList = accountRepository.findAll();
         return accountList;

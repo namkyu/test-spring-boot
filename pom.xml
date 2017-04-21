@@ -57,6 +57,7 @@
             <optional>true</optional>
         </dependency>
 
+
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -82,8 +83,14 @@
             <artifactId>bootstrap</artifactId>
             <version>3.3.7-1</version>
         </dependency>
+        <dependency>
+            <groupId>net.sourceforge.nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+            <version>1.9.22</version>
+        </dependency>
 
         <!-- spring boot admin ui 설정 -->
+        <!--
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-server</artifactId>
@@ -99,6 +106,7 @@
             <artifactId>spring-boot-admin-starter-client</artifactId>
             <version>1.5.0</version>
         </dependency>
+        -->
 
 
     </dependencies>

@@ -32,8 +32,12 @@
 # [minSpareThreads]
 # 언제나 살아 있는 Thread의 최소 개수며, default는 25이다.
 
-debug: false
+debug: true
 
+
+# =================================
+# spring
+# =================================
 spring:
   h2:
     console:
@@ -46,32 +50,38 @@ spring:
     driver-class-name: org.h2.Driver
     username: sa
     platform: h2
-    #schema:
-    #data:
-
-
-
 
   jpa:
     show-sql: true
     hibernate:
-#      ddl-auto: none
       ddl-auto: update
 
   main:
     banner-mode: "off"
+
   thymeleaf:
     cache: false
+    mode: LEGACYHTML5
+
   devtools:
     livereload:
       enabled: true
+
   boot:
     admin:
       url: http://localhost:8080
+  resources:
+    chain:
+      strategy:
+        content:
+          enabled: true
+          paths: /**
 
-
-
+# =================================
+# server
+# =================================
 server:
+  port: 20010
   tomcat:
     max-threads: 500 # Maximum amount of worker threads.
     min-spare-threads: 50 # Minimum amount of worker threads.
@@ -79,9 +89,17 @@ server:
     uri-encoding: UTF-8 # Character encoding to use to decode the URI.
   connection-timeout: 10000 # 10 seconds
 
+
+# =================================
+# management
+# =================================
 management:
   security:
     enabled: false
 
 
-welcome.message: Hello Kyu!!
+# =================================
+# custom
+# =================================
+welcome:
+  message: Hello Kyu!!
