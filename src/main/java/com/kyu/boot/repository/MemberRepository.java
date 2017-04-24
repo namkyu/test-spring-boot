@@ -1,8 +1,13 @@
 package com.kyu.boot.repository;
 
-import com.kyu.boot.entity.Account;
 import com.kyu.boot.entity.onetomany.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.scheduling.annotation.Async;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @Project : test_project
@@ -12,12 +17,25 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface MemberRepository extends JpaRepository<Member, Integer> {
 
-    /**
-     * 사용자 정의
-     * 메서드 이름으로 쿼리하고 싶을 때 사용
-     * @param seq
-     * @param name
-     * @return
-     */
+
     Member findBySeqAndName(int seq, String name);
+
+    List<Member> findTop3ByNameLike(String name);
+
+    Member readBySeq(int seq);
+
+    Member queryBySeq(int seq);
+
+    long countByNameLike(String name);
+
+    long countByName(String name);
+
+    @Query(value = "SELECT seq, name FROM Member", nativeQuery = true)
+    List<Member> nativeQuery();
+
+    @Query(value = "SELECT seq, name FROM Member WHERE seq = :seq", nativeQuery = true)
+    Member nativeQueryBySeq(@Param(value = "seq") int seq);
+
+    @Async
+    CompletableFuture<List<Member>> findAllBy();
 }

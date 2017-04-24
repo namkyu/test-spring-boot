@@ -18,101 +18,102 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import java.util.List;
-
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TestSpringBootApplicationTests {
 
-	@Autowired
-	private HelloService helloService;
-	@PersistenceContext
-	private EntityManager entityManager;
-	@Autowired
-	private MemberRepository memberRepository;
-	@Autowired
-	private PhoneRepository phoneRepository;
+    @Autowired
+    private HelloService helloService;
+    @PersistenceContext
+    private EntityManager entityManager;
+    @Autowired
+    private MemberRepository memberRepository;
+    @Autowired
+    private PhoneRepository phoneRepository;
 
-	@Test
-	public void 트랜잭션테스트WithNPE() {
-		assertThat(helloService.getUsers().size(), is(4));
+    @Test
+    public void 트랜잭션테스트WithNPE() {
+        assertThat(helloService.getUsers().size(), is(4));
 
-		try {
-			// save user
-			helloService.getUserByOccurNPE();
-		} catch (RuntimeException ex) {
-			ex.printStackTrace();
-		}
+        try {
+            // save user
+            helloService.getUserByOccurNPE();
+        } catch (RuntimeException ex) {
+            ex.printStackTrace();
+        }
 
-		helloService.getUsers().forEach(System.out::println);
-		assertThat(helloService.getUsers().size(), is(4));
-	}
+        helloService.getUsers().forEach(System.out::println);
+        assertThat(helloService.getUsers().size(), is(4));
+    }
 
-	@Test
-	public void 트랜잭션테스트WithNormal() {
-		assertThat(helloService.getUsers().size(), is(4));
-		// save user
-		helloService.getUser();
-		assertThat(helloService.getUsers().size(), is(5));
-	}
-
-
-	@Test
-	@Transactional
-	public void oneToOne() {
-
-		for (int i = 0; i < 10; i++) {
-			Person person = new Person();
-			person.setName("nklee" + i);
-
-			Department department = new Department();
-			department.setName("development");
-			person.setDepartment(department);
-
-			// JPA 방식
-			entityManager.persist(person);
-			entityManager.persist(department);
-		}
-
-		// using JPQL (Java Persistent Query Language)
-		entityManager.createQuery("SELECT p FROM Person p")
-				.getResultList()
-				.forEach(System.out::println);
-
-		entityManager.createQuery("SELECT d FROM Department d WHERE d.id = :id")
-				.setParameter("id", 1L)
-				.setMaxResults(10)
-				.getResultList()
-				.forEach(System.out::println);
-	}
+    @Test
+    public void 트랜잭션테스트WithNormal() {
+        assertThat(helloService.getUsers().size(), is(4));
+        // save user
+        helloService.getUser();
+        assertThat(helloService.getUsers().size(), is(5));
+    }
 
 
-	@Test
-	@Transactional
-	public void oneToMany() {
-		Member member1 = new Member("Lee");
-		member1.addPhone(new Phone("010-1111-1111"));
-		member1.addPhone(new Phone("010-2222-2222"));
+    @Test
+    @Transactional
+    public void oneToOne() {
 
-		Member member2 = new Member("Jang");
-		member2.addPhone(new Phone("010-3333-3333"));
+        for (int i = 0; i < 10; i++) {
+            Person person = new Person();
+            person.setName("nklee" + i);
 
-		Member member3 = new Member("JUN");
+            Department department = new Department();
+            department.setName("development");
+            person.setDepartment(department);
 
-		// Spring Data JPA 방식
-		memberRepository.save(member1);
-		memberRepository.save(member2);
-		memberRepository.save(member3);
+            // JPA 방식
+            entityManager.persist(person);
+            entityManager.persist(department);
+        }
 
-		memberRepository.findAll().forEach(System.out::println);
+        // using JPQL (Java Persistent Query Language)
+        entityManager.createQuery("SELECT p FROM Person p")
+                .getResultList()
+                .forEach(System.out::println);
 
-		System.out.println("=====================================");
-		System.out.println(memberRepository.findOne(2));
-		System.out.println("=====================================");
-		System.out.println(memberRepository.findBySeqAndName(1, "Lee"));
-	}
+        entityManager.createQuery("SELECT d FROM Department d WHERE d.id = :id")
+                .setParameter("id", 1L)
+                .setMaxResults(10)
+                .getResultList()
+                .forEach(System.out::println);
+    }
+
+
+    @Test
+    @Transactional
+    public void oneToMany() {
+        Member member1 = new Member("Lee");
+        member1.addPhone(new Phone("010-1111-1111"));
+        member1.addPhone(new Phone("010-2222-2222"));
+
+        Member member2 = new Member("Jang");
+        member2.addPhone(new Phone("010-3333-3333"));
+
+        Member member3 = new Member("JUN");
+
+        Member member4 = new Member("Lee");
+        member4.addPhone(new Phone("010-1111-1111"));
+
+        // Spring Data JPA 방식
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+        memberRepository.save(member3);
+
+        memberRepository.findAll().forEach(System.out::println);
+
+        System.out.println("=====================================");
+        System.out.println(memberRepository.findOne(2));
+        System.out.println("=====================================");
+        System.out.println(memberRepository.findBySeqAndName(1, "Lee"));
+    }
 }
