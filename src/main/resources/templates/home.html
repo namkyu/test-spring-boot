@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thymeleaf tutorial: exercise 2</title>
+    <link rel="stylesheet" href="../static/css/main-static.css" th:href="@{/css/main-static.css}"/>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<h1>Thymeleaf Test</h1>
+
+<!-- basic 테스트 -->
+<dl>
+    <dt th:text="#{product.name}">Product name</dt>
+    <dd th:text="${product.description}">상품</dd>
+
+    <dt th:text="#{product.price}">Product price</dt>
+    <dd th:text="${'$' + #numbers.formatDecimal(product.price, 1, 2)}">1,000</dd>
+
+    <dt th:text="#{product.available}">Product available from</dt>
+    <dd th:text="${#dates.format(product.availableFrom, 'yyyy-MM-dd')}">2017-02-01</dd>
+</dl>
+
+
+<!-- escaped 테스트 -->
+<ul>
+    <li th:text="${html}">Some escaped text</li>
+    <li th:utext="${html}">Some unescaped text</li>
+</ul>
+
+<table>
+    <thead>
+    <tr>
+        <th>No.</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Available from</th>
+        <th>Option</th>
+    </tr>
+    </thead>
+
+    <!--
+        all: Remove both the containing tag and all its children.
+        body: Do not remove the containing tag, but remove all its children.
+        tag: Remove the containing tag, but do not remove its children.
+        all-but-first: Remove all children of the containing tag except the first one.
+        none : Do nothing. This value is useful for dynamic evaluation.
+    -->
+    <tbody th:remove="all-but-first">
+    <tr th:each="product : ${productList}">
+        <td th:text="${productStat.count}">1</td>
+        <td th:text="${product.description}">Red chair</td>
+        <td th:text="${'$' + #numbers.formatDecimal(product.price, 1, 2)}">$350</td>
+        <td th:text="${#dates.format(product.availableFrom, 'dd-MMM-yyyy')}">28-Jun-2013</td>
+        <td>
+            <span th:if="${product.price lt 2000}" class="offer">Special offer!</span>
+        </td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>White table</td>
+        <td>$200</td>
+        <td>15-Jul-2013</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Reb table</td>
+        <td>$200</td>
+        <td>15-Jul-2013</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Blue table</td>
+        <td>$200</td>
+        <td>15-Jul-2013</td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+
+<ul>
+    <li th:text="${4 * 10}">123</li>
+    <li th:text="${productList[1].description}">상품이름</li>
+    <li th:text="${new java.util.Date().getTime()}">22-Jun-2013</li>
+    <li th:text="${T(java.lang.Math).random()}">123456</li>
+</ul>
+
+<ul>
+    <li><a href="#" th:href="@{/thymleaf/home.html(action='view')}">View product</a></li>
+    <li><a href="#" th:href="@{/thymleaf/home.html(action='edit')}">Edit product</a></li>
+    <li th:inline="text">[[${name}]]</li>
+</ul>
+
+</body>
+</html>

@@ -70,12 +70,19 @@ spring:
   boot:
     admin:
       url: http://localhost:8080
+
   resources:
     chain:
       strategy:
         content:
           enabled: true
           paths: /**
+
+  messages:
+    encoding: UTF-8
+    cache-seconds: 20
+    #basename: classpath:/messages/message
+
 
 # =================================
 # server
