@@ -1,5 +1,6 @@
 package com.kyu.boot.entity.onetomany;
 
+import com.kyu.boot.common.constants.Gender;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,6 +23,9 @@ public class Member {
 
     private String name;
 
+    @Enumerated(EnumType.ORDINAL)
+    private Gender gender;
+
     // default fetch type = EAGER
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Collection<Phone> phone;
@@ -33,8 +37,13 @@ public class Member {
         this.name = name;
     }
 
+    public Member(String name, Gender gender) {
+        this.name = name;
+        this.gender = gender;
+    }
+
     public void addPhone(Phone p) {
-        if(phone == null) {
+        if (phone == null) {
             phone = new ArrayList<>();
         }
 

@@ -24,6 +24,8 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 
     Member readBySeq(int seq);
 
+    Member readByName(String name);
+
     Member queryBySeq(int seq);
 
     long countByNameLike(String name);

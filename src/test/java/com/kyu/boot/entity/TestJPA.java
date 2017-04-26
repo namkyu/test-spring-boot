@@ -1,5 +1,6 @@
 package com.kyu.boot.entity;
 
+import com.kyu.boot.common.constants.Gender;
 import com.kyu.boot.entity.onetomany.Member;
 import com.kyu.boot.entity.onetomany.Phone;
 import com.kyu.boot.entity.onetoone.Department;
@@ -75,6 +76,18 @@ public class TestJPA {
     // =================================================================
 
     @Test
+    public void testEnumTest() {
+        memberRepository.deleteAll();
+        Member member = new Member("Lee", Gender.MALE);
+        memberRepository.save(member);
+        assertThat(Gender.MALE, is(memberRepository.readByName("Lee").getGender()));
+
+        Member member2 = new Member("Lee2", Gender.FEMALE);
+        memberRepository.save(member2);
+        assertThat(Gender.FEMALE, is(memberRepository.readByName("Lee2").getGender()));
+    }
+
+    @Test
     public void testSpringDataJPA() {
         List<Member> list = memberRepository.findAll();
         assertThat(list.size(), is(CNT));
@@ -107,7 +120,6 @@ public class TestJPA {
     public void testNativeQuery() {
         List<Member> list = memberRepository.nativeQuery();
         list.forEach(System.out::println);
-
         System.out.println(memberRepository.nativeQueryBySeq(10));
     }
 
