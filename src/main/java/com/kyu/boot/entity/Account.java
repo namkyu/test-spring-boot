@@ -31,6 +31,4 @@ public class Account {
     @Convert(converter = LocalDateTimeAttributeConverter.class)
     private LocalDateTime changed1;
 
-    public Account() {
-    }
 }

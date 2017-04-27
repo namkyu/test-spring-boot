@@ -81,7 +81,7 @@ spring:
   messages:
     encoding: UTF-8
     cache-seconds: 20
-    #basename: classpath:/messages/message
+    basename: locale/messages
 
 
 # =================================

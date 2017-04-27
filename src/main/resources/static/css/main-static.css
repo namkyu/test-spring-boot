@@ -155,14 +155,14 @@ p.answer {
     text-indent: 3em;
 }
 
-div.white {
+span.white {
     background-color: white;
 }
 
-div.red {
+span.red {
     background-color: #cd0a0a;
 }
 
-div.blue {
+span.blue {
     background-color: cadetblue;
 }

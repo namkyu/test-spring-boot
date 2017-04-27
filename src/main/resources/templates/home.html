@@ -3,8 +3,9 @@
 <head>
     <title>Thymeleaf tutorial: exercise 2</title>
     <link rel="stylesheet" href="../static/css/main-static.css" th:href="@{/css/main-static.css}"/>
-    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
+
 <body>
 <h1>Thymeleaf Test</h1>
 
@@ -80,7 +81,23 @@
 </table>
 
 <ul>
+    <li>
+        <div th:fragment="banner" id="bannerElement">
+            Here is banner area
+        </div>
+    </li>
+    <li>
+        <div th:fragment="banner2(name, color)" id="bannerElement2" th:remove="all">
+            <span th:text="${name}" th:attrappend="class=${color}">Here is banner area 222</span>
+        </div>
+    </li>
+</ul>
+
+<ul>
     <li th:text="${4 * 10}">123</li>
+    <li>
+        <div th:include="this :: banner2('parameterizable fragments test', 'red')">Banner</div>
+    </li>
     <li th:text="${productList[1].description}">상품이름</li>
     <li th:text="${new java.util.Date().getTime()}">22-Jun-2013</li>
     <li th:text="${T(java.lang.Math).random()}">123456</li>
@@ -90,7 +107,20 @@
     <li><a href="#" th:href="@{/thymleaf/home.html(action='view')}">View product</a></li>
     <li><a href="#" th:href="@{/thymleaf/home.html(action='edit')}">Edit product</a></li>
     <li th:inline="text">[[${name}]]</li>
+    <li>
+        <div th:include="this :: banner2('parameterizable fragments test', 'blue')">Banner</div>
+    </li>
+    <li>
+        <div th:include="this :: [//div[@id='bannerElement']]">Banner</div>
+    </li>
+    <li>
+        <a href="/thymleaf/home" th:href="@{/thymleaf/home.html(name=${name})}">href URL</a>
+    </li>
 </ul>
+
+<!--/*
+    Thymleaf commnet
+*/-->
 
 </body>
 </html>
