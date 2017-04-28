@@ -27,7 +27,7 @@ public class Member {
     private Gender gender;
 
     // default fetch type = EAGER
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Phone.class)
     private Collection<Phone> phone;
 
     public Member() {

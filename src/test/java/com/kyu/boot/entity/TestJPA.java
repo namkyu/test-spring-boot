@@ -76,6 +76,19 @@ public class TestJPA {
     // =================================================================
 
     @Test
+    public void testLazyLoadingTest() {
+        memberRepository.deleteAll();
+
+        Member member = new Member("Lee", Gender.MALE);
+        member.addPhone(new Phone("010-1111-1111"));
+        member.addPhone(new Phone("010-2222-2222"));
+        memberRepository.save(member);
+
+        List<Member> list = memberRepository.findAll();
+        list.forEach(System.out::println);
+    }
+
+    @Test
     public void testEnumTest() {
         memberRepository.deleteAll();
         Member member = new Member("Lee", Gender.MALE);
@@ -85,6 +98,14 @@ public class TestJPA {
         Member member2 = new Member("Lee2", Gender.FEMALE);
         memberRepository.save(member2);
         assertThat(Gender.FEMALE, is(memberRepository.readByName("Lee2").getGender()));
+
+
+        Member testMember = memberRepository.readByName("Lee");
+        Member testMember1 = memberRepository.readByName("Lee");
+
+        if (testMember == testMember1) {
+            System.out.println("same object");
+        }
     }
 
     @Test

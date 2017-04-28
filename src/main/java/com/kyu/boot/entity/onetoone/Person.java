@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Person {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String name;
@@ -24,5 +24,6 @@ public class Person {
     @PrimaryKeyJoinColumn
     private Department department;
 
-    public Person() {}
+    public Person() {
+    }
 }

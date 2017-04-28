@@ -5,7 +5,6 @@ import com.kyu.boot.entity.onetomany.Phone;
 import com.kyu.boot.entity.onetoone.Department;
 import com.kyu.boot.entity.onetoone.Person;
 import com.kyu.boot.repository.MemberRepository;
-import com.kyu.boot.repository.PhoneRepository;
 import com.kyu.boot.service.HelloService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -19,6 +18,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
 @Slf4j
@@ -32,8 +32,6 @@ public class TestSpringBootApplicationTests {
     private EntityManager entityManager;
     @Autowired
     private MemberRepository memberRepository;
-    @Autowired
-    private PhoneRepository phoneRepository;
 
     @Test
     public void 트랜잭션테스트WithNPE() {
@@ -86,6 +84,25 @@ public class TestSpringBootApplicationTests {
                 .setMaxResults(10)
                 .getResultList()
                 .forEach(System.out::println);
+    }
+
+    @Test
+    @Transactional
+    public void 지연로딩테스트() {
+        Person person = new Person();
+        person.setName("nklee");
+
+        Department department = new Department();
+        department.setName("development");
+        person.setDepartment(department);
+        entityManager.persist(person);
+
+        Person savedEntity = entityManager.find(Person.class, 1L);
+        Person savedEntity1 = entityManager.find(Person.class, 1L);
+
+        assertThat(savedEntity, is(sameInstance(savedEntity1)));
+
+        Department de = savedEntity.getDepartment();
     }
 
 

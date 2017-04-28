@@ -2,7 +2,10 @@ package com.kyu.boot.entity.onetoone;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * @Project : test_project
@@ -14,7 +17,7 @@ import javax.persistence.*;
 @Entity
 public class Department {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String name;
