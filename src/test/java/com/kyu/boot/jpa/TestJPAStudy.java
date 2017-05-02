@@ -1,4 +1,4 @@
-package com.kyu.boot.entity;
+package com.kyu.boot.jpa;
 
 import com.kyu.boot.entity.study.MemberStudy;
 import lombok.extern.slf4j.Slf4j;

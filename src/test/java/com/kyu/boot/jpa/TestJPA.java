@@ -1,11 +1,10 @@
-package com.kyu.boot.entity;
+package com.kyu.boot.jpa;
 
 import com.kyu.boot.common.constants.Gender;
 import com.kyu.boot.entity.onetomany.Member;
 import com.kyu.boot.entity.onetomany.Phone;
-import com.kyu.boot.entity.onetoone.Department;
-import com.kyu.boot.entity.onetoone.Person;
 import com.kyu.boot.repository.MemberRepository;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,9 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -189,4 +186,37 @@ public class TestJPA {
         List<Person> list = typedQuery.getResultList();
         assertThat(list.size(), is(1));
     }
+
+
+    @Data
+    @Entity
+    private class Department {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private long id;
+
+        private String name;
+
+        public Department() {
+        }
+    }
+
+    @Data
+    @Entity
+    private class Person {
+
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private long id;
+
+        private String name;
+
+        @OneToOne
+        @PrimaryKeyJoinColumn
+        private Department department;
+
+        public Person() {
+        }
+    }
+
 }
