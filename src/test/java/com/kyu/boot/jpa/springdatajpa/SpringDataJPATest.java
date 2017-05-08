@@ -1,4 +1,4 @@
-package com.kyu.boot.jpa;
+package com.kyu.boot.jpa.springdatajpa;
 
 import com.kyu.boot.entity.onetomany.Member;
 import com.kyu.boot.entity.onetomany.Phone;

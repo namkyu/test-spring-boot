@@ -1,4 +1,4 @@
-package com.kyu.boot.entity.converter;
+package com.kyu.boot.jpa.converter;
 
 import com.kyu.boot.entity.Account;
 import com.kyu.boot.repository.AccountRepository;
