@@ -32,7 +32,7 @@
 # [minSpareThreads]
 # 언제나 살아 있는 Thread의 최소 개수며, default는 25이다.
 
-debug: true
+debug: false
 
 
 # =================================
@@ -46,8 +46,8 @@ spring:
 
   datasource:
     initialize: true
-    #url: jdbc:h2:mem:nkdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    url:  jdbc:h2:tcp://localhost/~/nkdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:nkdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    #url:  jdbc:h2:tcp://localhost/~/nkdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
     username: sa
     platform: h2

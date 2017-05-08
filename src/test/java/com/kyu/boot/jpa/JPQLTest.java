@@ -27,29 +27,27 @@ public class JPQLTest {
 
     @Test
     @Transactional
-    public void oneToOne() {
+    public void testJPQL() {
+
+        Department department = new Department();
+        department.setName("development");
+        entityManager.persist(department);
 
         for (int i = 0; i < 10; i++) {
             Person person = new Person();
             person.setName("nklee" + i);
-
-            Department department = new Department();
-            department.setName("development");
             person.setDepartment(department);
-
-            // JPA 방식
             entityManager.persist(person);
-            entityManager.persist(department);
         }
 
-        // using JPQL (Java Persistent Query Language)
-        entityManager.createQuery("SELECT p FROM Person p")
+        // JPQL은 객체지향 쿼리
+        entityManager.createQuery("SELECT p FROM JPQLTest$Person p")
                 .getResultList()
                 .forEach(System.out::println);
 
-        entityManager.createQuery("SELECT d FROM Department d WHERE d.id = :id")
-                .setParameter("id", 1L)
-                .setMaxResults(10)
+        System.out.println("===================================================");
+        entityManager.createQuery("SELECT p FROM JPQLTest$Person p")
+                .setMaxResults(5)
                 .getResultList()
                 .forEach(System.out::println);
     }
@@ -57,14 +55,13 @@ public class JPQLTest {
     @Data
     @Entity
     private class Department {
+
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private long id;
 
         private String name;
 
-        public Department() {
-        }
     }
 
     @Data
@@ -80,9 +77,6 @@ public class JPQLTest {
         @OneToOne
         @PrimaryKeyJoinColumn
         private Department department;
-
-        public Person() {
-        }
     }
 
 }

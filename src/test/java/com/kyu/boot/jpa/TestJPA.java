@@ -179,7 +179,7 @@ public class TestJPA {
 
     @Test
     public void testFilter() {
-        TypedQuery typedQuery = em.createQuery("select p from Person p where p.department.id = :id and p.department.name = :name", Person.class);
+        TypedQuery typedQuery = em.createQuery("select p from TestJPA$Person p where p.department.id = :id and p.department.name = :name", Person.class);
         typedQuery.setParameter("id", 1L);
         typedQuery.setParameter("name", "development");
 
