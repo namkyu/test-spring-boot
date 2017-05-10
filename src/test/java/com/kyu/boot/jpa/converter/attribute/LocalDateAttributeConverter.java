@@ -1,4 +1,4 @@
-package com.kyu.boot.entity.converter;
+package com.kyu.boot.jpa.converter.attribute;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

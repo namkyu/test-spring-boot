@@ -1,4 +1,4 @@
-package com.kyu.boot.entity.converter;
+package com.kyu.boot.jpa.converter.attribute;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
@@ -21,6 +21,7 @@ public class LocalDateTimeAttributeConverter implements AttributeConverter<Local
 
     /**
      * 엔티티의 데이터를 데이터베이스 컬럼에 저장할 데이터로 변환
+     *
      * @param localDateTime
      * @return
      */
@@ -34,6 +35,7 @@ public class LocalDateTimeAttributeConverter implements AttributeConverter<Local
 
     /**
      * 데이터베이스에서 조회한 컬럼 데이터를 엔티티의 데이터로 변환
+     *
      * @param date
      * @return
      */

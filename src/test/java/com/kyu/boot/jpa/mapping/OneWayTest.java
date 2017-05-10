@@ -103,6 +103,7 @@ public class OneWayTest {
         private String name;
     }
 
+
     // ==========================================
     // 1:N 관계
     // ==========================================
@@ -139,3 +140,5 @@ public class OneWayTest {
         private String name;
     }
 }
+
+

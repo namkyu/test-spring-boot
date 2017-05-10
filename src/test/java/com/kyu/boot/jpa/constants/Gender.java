@@ -1,4 +1,4 @@
-package com.kyu.boot.common.constants;
+package com.kyu.boot.jpa.constants;
 
 /**
  * @Project : test_project

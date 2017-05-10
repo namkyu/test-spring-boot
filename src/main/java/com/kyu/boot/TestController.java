@@ -1,11 +1,8 @@
 package com.kyu.boot;
 
-import com.kyu.boot.entity.Account;
 import com.kyu.boot.model.Product;
-import com.kyu.boot.repository.AccountRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,10 +19,7 @@ import java.util.Map;
  */
 @Slf4j
 @Controller
-public class HelloController {
-
-    @Autowired
-    private AccountRepository accountRepository;
+public class TestController {
 
     @ResponseBody
     @RequestMapping("/hello")
@@ -39,13 +33,6 @@ public class HelloController {
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String main(Model model) {
         return "main";
-    }
-
-    @ResponseBody
-    @RequestMapping("/convertJodaTimefromDateType")
-    public List<Account> convertJodaTimeFromDateType() {
-        List<Account> accountList = accountRepository.findAll();
-        return accountList;
     }
 
     @RequestMapping("/thymleafTest")
