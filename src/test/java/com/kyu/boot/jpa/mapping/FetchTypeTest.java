@@ -1,9 +1,8 @@
-package com.kyu.boot.jpa.converter;
+package com.kyu.boot.jpa.mapping;
 
 import com.kyu.boot.jpa.entity.Account;
 import com.kyu.boot.jpa.repository.AccountRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.hamcrest.core.IsSame;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,33 +10,31 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-
-import static org.junit.Assert.assertThat;
 
 /**
  * @Project : test_project
- * @Date : 2017-04-27
+ * @Date : 2017-05-08
  * @Author : nklee
  * @Description :
  */
 @Slf4j
-@Transactional
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ConverterTest {
+public class FetchTypeTest {
 
     @Autowired
     private AccountRepository accountRepository;
 
     @Test
-    public void testConverter() {
-        List<Account> list = accountRepository.findAll();
-        Account account = list.get(0);
-        assertThat(account.getChanged().getClass(), IsSame.sameInstance(LocalDate.class));
-        assertThat(account.getChanged1().getClass(), IsSame.sameInstance(LocalDateTime.class));
+    @Transactional
+    public void testLazy() {
+        List<Account> accountList = accountRepository.findAll();
+        for (Account account : accountList) {
+            System.out.println(account);
+        }
     }
 
 }
+
+
