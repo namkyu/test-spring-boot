@@ -1,4 +1,4 @@
-package com.kyu.boot.jpa.constants;
+package com.kyu.boot.constants;
 
 
 public enum RoleType {

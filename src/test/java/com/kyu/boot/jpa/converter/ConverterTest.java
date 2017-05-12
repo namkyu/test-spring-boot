@@ -1,7 +1,8 @@
 package com.kyu.boot.jpa.converter;
 
-import com.kyu.boot.jpa.entity.Account;
-import com.kyu.boot.jpa.repository.AccountRepository;
+
+import com.kyu.boot.entity.Account;
+import com.kyu.boot.repository.AccountRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.hamcrest.core.IsSame;
 import org.junit.Test;

@@ -1,6 +1,7 @@
-package com.kyu.boot.jpa.entity;
+package com.kyu.boot.entity;
 
-import com.kyu.boot.jpa.constants.RoleType;
+
+import com.kyu.boot.constants.RoleType;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

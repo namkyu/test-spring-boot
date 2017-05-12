@@ -1,6 +1,7 @@
 package com.kyu.boot.jpa.jpql;
 
-import lombok.Data;
+import com.kyu.boot.entity.jpql.Department;
+import com.kyu.boot.entity.jpql.Person;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,7 +9,10 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -79,33 +83,6 @@ public class JPQLTest {
         List<Person> list = typedQuery.getResultList();
         assertThat(list.size(), is(1));
     }
-}
-
-@Data
-@Entity
-class Department {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    private String name;
-
-}
-
-@Data
-@Entity
-class Person {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    private String name;
-
-    @OneToOne
-    @PrimaryKeyJoinColumn
-    private Department department;
 }
 
 

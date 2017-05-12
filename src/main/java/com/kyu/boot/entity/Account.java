@@ -1,10 +1,9 @@
-package com.kyu.boot.jpa.entity;
+package com.kyu.boot.entity;
 
-import com.kyu.boot.jpa.converter.attribute.LocalDateAttributeConverter;
-import com.kyu.boot.jpa.converter.attribute.LocalDateTimeAttributeConverter;
+
+import com.kyu.boot.converter.LocalDateTimeAttributeConverter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,16 +16,12 @@ import java.util.List;
  * @Description :
  */
 @Entity
-public class Account {
+public class Account extends BaseEntity {
 
     @Id
     private int accountId;
 
     private String accountName;
-
-    @Convert(converter = LocalDateAttributeConverter.class)
-    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDate changed;
 
     @Convert(converter = LocalDateTimeAttributeConverter.class)
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -54,14 +49,6 @@ public class Account {
 
     public void setAccountName(String accountName) {
         this.accountName = accountName;
-    }
-
-    public LocalDate getChanged() {
-        return changed;
-    }
-
-    public void setChanged(LocalDate changed) {
-        this.changed = changed;
     }
 
     public LocalDateTime getChanged1() {
@@ -93,7 +80,7 @@ public class Account {
         return "Account{" +
                 "accountId=" + accountId +
                 ", accountName='" + accountName + '\'' +
-                ", changed=" + changed +
+                ", changed=" + getChanged() +
                 ", changed1=" + changed1 +
                 ", changed2=" + changed2 +
 

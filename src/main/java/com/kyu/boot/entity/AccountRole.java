@@ -1,4 +1,4 @@
-package com.kyu.boot.jpa.entity;
+package com.kyu.boot.entity;
 
 import javax.persistence.*;
 
@@ -9,7 +9,7 @@ import javax.persistence.*;
  * @Description :
  */
 @Entity
-public class AccountRole {
+public class AccountRole extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -22,6 +22,7 @@ public class AccountRole {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ROLE_ID")
     private Role role;
+
 
     public int getId() {
         return id;

@@ -43,7 +43,7 @@
 #
 
 
-debug: true
+debug: false
 
 
 # =================================
@@ -52,24 +52,25 @@ debug: true
 spring:
   h2:
     console:
-      enabled: true
+      enabled: false
       path: /h2-console
 
   datasource:
     initialize: true
     url: jdbc:h2:mem:nkdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    #url:  jdbc:h2:tcp://localhost/~/nkdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
     username: sa
-    platform: h2
 
   jpa:
-    show-sql: true
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        ddl_auto: none
     hibernate:
-      ddl-auto: create
       naming:
         #physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        #implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+        #implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
 
   main:
     banner-mode: "off"
@@ -97,7 +98,6 @@ spring:
     encoding: UTF-8
     cache-seconds: 20
     basename: locale/messages
-
 
 # =================================
 # server

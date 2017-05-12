@@ -1,7 +1,9 @@
 package com.kyu.boot.jpa.springdatajpa;
 
-import com.kyu.boot.jpa.constants.Gender;
-import lombok.Data;
+import com.kyu.boot.constants.Gender;
+import com.kyu.boot.entity.springdatajpa.Member3;
+import com.kyu.boot.entity.springdatajpa.Phone3;
+import com.kyu.boot.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,15 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.query.Param;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.*;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -50,24 +46,24 @@ public class SpringDataJPATest {
     @Before
     public void dummyInsertMemberData() {
         for (int i = 0; i < CNT; i++) {
-            Member member = new Member("Lee" + i, Gender.MALE);
-            member.addPhone(new Phone("010-1111-" + i));
-            member.addPhone(new Phone("010-2222-" + i));
+            Member3 member = new Member3("Lee" + i, Gender.MALE);
+            member.addPhone(new Phone3("010-1111-" + i));
+            member.addPhone(new Phone3("010-2222-" + i));
             memberRepository.save(member);
         }
     }
 
     @Test
     public void testTotalCnt() {
-        List<Member> list = memberRepository.findAll();
+        List<Member3> list = memberRepository.findAll();
         assertThat(list.size(), is(CNT));
         assertThat(memberRepository.count(), is(Long.valueOf(CNT)));
     }
 
     @Test
     public void testSameInstance() {
-        Member member1 = memberRepository.readByName("Lee0");
-        Member member2 = memberRepository.readByName("Lee0");
+        Member3 member1 = memberRepository.readByName("Lee0");
+        Member3 member2 = memberRepository.readByName("Lee0");
         assertThat(member1, is(sameInstance(member2)));
     }
 
@@ -75,9 +71,9 @@ public class SpringDataJPATest {
     public void testLazyLoadingTest() {
         memberRepository.deleteAll();
 
-        Member member = new Member("lazyMember", Gender.MALE);
-        member.addPhone(new Phone("010-1111-1111"));
-        member.addPhone(new Phone("010-2222-2222"));
+        Member3 member = new Member3("lazyMember", Gender.MALE);
+        member.addPhone(new Phone3("010-1111-1111"));
+        member.addPhone(new Phone3("010-2222-2222"));
         member = memberRepository.save(member);
 
         /**
@@ -85,7 +81,7 @@ public class SpringDataJPATest {
          * FetchType.LAZY 으로 해도 핸드폰 값은 채워져 있는 상태로 반환된다.
          * 이유는 아래 readByName을 호출하게 되면 DB를 갖다 오는게 아닌 영속성 컨텍스트에 저장되어 있는 객체 정보를 가져오기 때문이다.
          */
-        Member resultMember = memberRepository.readByName("lazyMember");
+        Member3 resultMember = memberRepository.readByName("lazyMember");
 
         // 영속성 컨텍스트에 저장되어 있는 객체를 가져오기 때문에 FetchType.LAZY 와는 무관하게 휴대폰 정보가 저장되어 있다.
         assertThat(member, is(sameInstance(resultMember)));
@@ -95,11 +91,11 @@ public class SpringDataJPATest {
     @Test
     public void testEnumTest() {
         memberRepository.deleteAll();
-        Member member = new Member("Lee", Gender.MALE);
+        Member3 member = new Member3("Lee", Gender.MALE);
         memberRepository.save(member);
         assertThat(Gender.MALE, is(memberRepository.readByName("Lee").getGender()));
 
-        Member member2 = new Member("Lee2", Gender.FEMALE);
+        Member3 member2 = new Member3("Lee2", Gender.FEMALE);
         memberRepository.save(member2);
         assertThat(Gender.FEMALE, is(memberRepository.readByName("Lee2").getGender()));
     }
@@ -112,28 +108,28 @@ public class SpringDataJPATest {
 
     @Test
     public void testAsyncQueryCreation() throws InterruptedException, ExecutionException {
-        CompletableFuture<List<Member>> completableFuture = memberRepository.findAllBy();
+        CompletableFuture<List<Member3>> completableFuture = memberRepository.findAllBy();
         while (completableFuture.isDone() == false) {
             System.out.println("waiting for the CompletableFuture to finish...");
             TimeUnit.MILLISECONDS.sleep(500);
         }
 
-        List<Member> members = completableFuture.get();
+        List<Member3> members = completableFuture.get();
         assertThat(members.size(), is(CNT));
     }
 
     @Test
     public void testNativeQuery() {
-        List<Member> list = memberRepository.nativeQuery();
+        List<Member3> list = memberRepository.nativeQuery();
         assertThat(list.size(), is(CNT));
 
-        Member member = memberRepository.nativeQueryByName("Lee0");
+        Member3 member = memberRepository.nativeQueryByName("Lee0");
         assertThat(member.getName(), is("Lee0"));
     }
 
     @Test
     public void testPaging() {
-        Page<Member> page = memberRepository.findAll(new PageRequest(3, 15));
+        Page<Member3> page = memberRepository.findAll(new PageRequest(3, 15));
         System.out.println("=======================================================");
         System.out.println("page : " + page);
         System.out.println("totalElements : " + page.getTotalElements());
@@ -144,85 +140,3 @@ public class SpringDataJPATest {
     }
 }
 
-@Data
-@Entity
-class Member {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int seq;
-
-    private String name;
-
-    @Enumerated(EnumType.ORDINAL)
-    private Gender gender;
-
-    // default fetch type = EAGER
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Phone.class)
-    private Collection<Phone> phone;
-
-    public Member() {
-    }
-
-    public Member(String name) {
-        this.name = name;
-    }
-
-    public Member(String name, Gender gender) {
-        this.name = name;
-        this.gender = gender;
-    }
-
-    public void addPhone(Phone p) {
-        if (phone == null) {
-            phone = new ArrayList<>();
-        }
-
-        phone.add(p);
-    }
-}
-
-@Data
-@Entity
-class Phone {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int seq;
-
-    private String no;
-
-    public Phone() {
-    }
-
-    public Phone(String no) {
-        this.no = no;
-    }
-
-}
-
-interface MemberRepository extends JpaRepository<Member, Integer> {
-
-    Member findBySeqAndName(int seq, String name);
-
-    List<Member> findTop3ByNameLike(String name);
-
-    Member readBySeq(int seq);
-
-    Member readByName(String name);
-
-    Member queryBySeq(int seq);
-
-    long countByNameLike(String name);
-
-    long countByName(String name);
-
-    @org.springframework.data.jpa.repository.Query(value = "SELECT seq, name FROM Member", nativeQuery = true)
-    List<Member> nativeQuery();
-
-    @org.springframework.data.jpa.repository.Query(value = "SELECT seq, name FROM Member WHERE name = :name", nativeQuery = true)
-    Member nativeQueryByName(@Param(value = "name") String name);
-
-    @Async
-    CompletableFuture<List<Member>> findAllBy();
-}
