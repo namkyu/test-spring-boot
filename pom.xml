@@ -98,6 +98,11 @@
             <artifactId>mariadb-java-client</artifactId>
             <version>1.5.9</version>
         </dependency>
+        <dependency>
+            <groupId>org.jasypt</groupId>
+            <artifactId>jasypt</artifactId>
+            <version>1.9.2</version>
+        </dependency>
 
         <!-- spring boot admin ui 설정 -->
         <!--

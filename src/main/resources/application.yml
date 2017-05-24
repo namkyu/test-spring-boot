@@ -14,6 +14,11 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 
 # ==============================================================
+# tomcat connection pool 프로퍼티 reference
+# ==============================================================
+# https://tomcat.apache.org/tomcat-8.0-doc/jdbc-pool.html#Common_Attributes
+
+# ==============================================================
 # Tomcat 설정 관련
 # ==============================================================
 # [maxConnection]
@@ -60,6 +65,13 @@ spring:
     url: jdbc:h2:mem:nkdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
     username: sa
+    tomcat:
+      initial-size: 10
+      max-active: 50
+      max-idle: -1
+      max-wait: -1
+      validation-query: SELECT 1
+      test-on-borrow: true
 
   jpa:
     properties:

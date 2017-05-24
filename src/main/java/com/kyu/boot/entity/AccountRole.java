@@ -15,7 +15,7 @@ public class AccountRole extends BaseEntity {
     @GeneratedValue
     private int id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ACCOUNT_ID")
     private Account account;
 
@@ -39,6 +39,7 @@ public class AccountRole extends BaseEntity {
     public void setAccount(Account account) {
         this.account = account;
     }
+
 
     public Role getRole() {
         return role;

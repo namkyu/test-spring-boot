@@ -32,7 +32,7 @@ public class Account extends BaseEntity {
     private Date changed2;
 
     // default fetch type = LAZY
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, targetEntity = AccountRole.class)
     private List<AccountRole> accountRoles = new ArrayList<>();
 
     public int getAccountId() {
