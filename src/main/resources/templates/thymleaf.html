@@ -104,8 +104,8 @@
 </ul>
 
 <ul>
-    <li><a href="#" th:href="@{/thymleaf/home.html(action='view')}">View product</a></li>
-    <li><a href="#" th:href="@{/thymleaf/home.html(action='edit')}">Edit product</a></li>
+    <li><a href="#" th:href="@{/thymleaf.html(action='view')}">View product</a></li>
+    <li><a href="#" th:href="@{/thymleaf.html(action='edit')}">Edit product</a></li>
     <li th:inline="text">[[${name}]]</li>
     <li>
         <div th:include="this :: banner2('parameterizable fragments test', 'blue')">Banner</div>
@@ -114,7 +114,7 @@
         <div th:include="this :: [//div[@seq='bannerElement']]">Banner</div>
     </li>
     <li>
-        <a href="/thymleaf/home" th:href="@{/thymleaf/home.html(name=${name})}">href URL</a>
+        <a href="/thymleaf.html" th:href="@{/thymleaf.html(name=${name})}">href URL</a>
     </li>
 </ul>
 
