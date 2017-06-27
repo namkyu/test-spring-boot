@@ -30,10 +30,10 @@ public interface MemberRepository extends JpaRepository<Member3, Integer> {
 
     long countByName(String name);
 
-    @org.springframework.data.jpa.repository.Query(value = "SELECT seq, name FROM Member1", nativeQuery = true)
+    @org.springframework.data.jpa.repository.Query(value = "SELECT seq, name FROM Member3", nativeQuery = true)
     List<Member3> nativeQuery();
 
-    @org.springframework.data.jpa.repository.Query(value = "SELECT seq, name FROM Member1 WHERE name = :name", nativeQuery = true)
+    @org.springframework.data.jpa.repository.Query(value = "SELECT seq, name FROM Member3 WHERE name = :name", nativeQuery = true)
     Member3 nativeQueryByName(@Param(value = "name") String name);
 
     @Async

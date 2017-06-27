@@ -111,7 +111,7 @@
         <div th:include="this :: banner2('parameterizable fragments test', 'blue')">Banner</div>
     </li>
     <li>
-        <div th:include="this :: [//div[@id='bannerElement']]">Banner</div>
+        <div th:include="this :: [//div[@seq='bannerElement']]">Banner</div>
     </li>
     <li>
         <a href="/thymleaf/home" th:href="@{/thymleaf/home.html(name=${name})}">href URL</a>

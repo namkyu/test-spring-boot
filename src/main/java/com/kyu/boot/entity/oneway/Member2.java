@@ -1,7 +1,5 @@
 package com.kyu.boot.entity.oneway;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
 /**
@@ -12,13 +10,12 @@ import javax.persistence.*;
  */ // ==========================================
 // 1:N 관계
 // ==========================================
-@Data
+
 @Entity
 public class Member2 {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     private String name;
 
@@ -28,7 +25,41 @@ public class Member2 {
      * - 기본전략 : 필드명 + _ + 참조하는 테이블의 컬럼명 ex) departmentManyToOne_ID
      * optional 값을 false 로 설정하면 연관된 엔티티가 항상 있어야 한다.
      */
-    @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(optional = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "TEAM_ID")
     private Team2 team;
+
+    public Team2 getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team2 team) {
+        this.team = team;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Member2{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", team=team" + team +
+                '}';
+    }
 }
