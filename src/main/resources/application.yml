@@ -91,6 +91,7 @@ spring:
     cache: false
     mode: LEGACYHTML5
 
+
   devtools:
     livereload:
       enabled: true
