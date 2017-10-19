@@ -138,3 +138,10 @@ management:
 # =================================
 welcome:
   message: Hello Kyu!!
+
+
+# =================================
+# auto configuration
+# =================================
+dbType: mongo
+usemysql: local
